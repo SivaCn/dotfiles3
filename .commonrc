@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#
+# Activate the default python virtual environment
+. ~/.python-venv/bin/activate
+

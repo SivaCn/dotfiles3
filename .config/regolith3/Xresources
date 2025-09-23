@@ -1,0 +1,13 @@
+regolith.wallpaper.file: /home/sivacn/wallpapers/Arch2.png
+regolith.lockscreen.wallpaper.file: /home/sivacn/wallpapers/Arch2.png
+
+i3-wm.bar.position: bottom
+i3-wm.bar.output: primary
+
+i3xrocks.date.format2: %Y-%m-%d %H:%M
+i3xrocks.date.border-color: #000000
+i3xrocks.date.color: #AAAAAA
+i3xrocks.date.label-color: #AAAAAA
+i3xrocks.time.color: #AAAAAA
+!regolith.look.path: /usr/share/regolith-look/solarized-dark
+regolith.look.path: /usr/share/regolith-look/blackhole

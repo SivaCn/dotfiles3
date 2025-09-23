@@ -1,0 +1,18 @@
+
+theme = "dracula"
+
+[editor]
+true-color = true
+line-number = "absolute"
+mouse = false
+bufferline = "multiple"
+cursorline = true
+cursorcolumn = true
+scrolloff = 10
+rulers = [80, 120]
+
+# Tree-sitter optimizations
+auto-completion = true
+completion-trigger-len = 2
+idle-timeout = 300
+

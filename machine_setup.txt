@@ -1,0 +1,69 @@
+#
+#
+#	The Machine Setup Script
+#
+#
+
+
+#
+# Install Regolith
+wget -qO - https://archive.regolith-desktop.com/regolith.key | gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg > /dev/null
+echo deb "[arch=amd64 signed-by=/usr/share/keyrings/regolith-archive-keyring.gpg] \
+https://archive.regolith-desktop.com/ubuntu/stable noble v3.3" | sudo tee /etc/apt/sources.list.d/regolith.list
+
+sudo apt update
+sudo apt install regolith-desktop regolith-session-flashback regolith-look-lascaille
+
+#
+# To Edit the Regolith Configurations
+#
+# Create the config directory if it doesn't exist and copy the default setting files
+mkdir -p ~/.config/regolith3/  # Check the Version and change regolith<#>
+touch /etc/regolith3/Xresources
+
+#
+# The regolith configuration file is: ~/.config/regolith/Xresources
+
+#
+# Restart the machine to take the effect
+reboot
+
+#
+# Install all the necessary tools or apps
+sudo apt install neovim terminator arandr htop wget curl git npm snap
+
+sudo apt install regolith-look-*
+sudo apt install i3xrocks-net-traffic i3xrocks-rofication i3xrocks-bluetooth i3xrocks-battery i3xrocks-focused-window-name i3xrocks-wifi i3xrocks-volume i3xrocks-nm-vpn
+
+
+#
+# To set dunst as default Notification System
+sudo apt install dunst libnotify-bin
+sudo apt purge regolith-rofication # remove any remaining config as well
+
+sudo apt install papirus-icon-theme breeze-icon-theme
+
+#
+# Installing and setting up the Helix Text Editor
+sudo add-apt-repository ppa:maveonair/helix-editor
+sudo apt update
+sudo apt install helix
+
+#
+# Configure Virtualenv
+sudo apt install python3-virtualenv
+virtualenv ~/.python-venv
+
+# Install LSP
+~/.python-venv/bin/pip3 install 'python-lsp-server[all]'
+
+#
+# add the below lines into the start of the .bashrc file
+```bash`
+#
+# Extend the bashrc with commonrc
+. ~/.commonrc
+
+# other bashrc configs follows
+````
+
