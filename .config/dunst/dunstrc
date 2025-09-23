@@ -69,7 +69,7 @@
 
 [urgency_critical]
     background = "#b6f505"
-    foreground = "#CDD6F4"
+    foreground = "#0000FF"
     frame_color = "#000000"
     timeout = 0
     highlight = "#F38BA8"
