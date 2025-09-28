@@ -35,6 +35,62 @@ sudo apt install neovim terminator arandr htop wget curl git npm snap
 sudo apt install regolith-look-*
 sudo apt install i3xrocks-net-traffic i3xrocks-rofication i3xrocks-bluetooth i3xrocks-battery i3xrocks-focused-window-name i3xrocks-wifi i3xrocks-volume i3xrocks-nm-vpn
 
+#
+# For i3-gaps settings
+sudo apt install picom
+
+add the following to `~/.config/picom/picom.conf`
+
+```ini
+# Backend
+backend = "glx"
+
+# Rounded corners
+corner-radius = 8
+
+# Round only top corners
+rounded-corners-exclude = [
+  "class_g = 'i3-frame'",
+  "class_g = 'i3bar'"
+];
+
+# Shadows
+shadow = true;
+shadow-radius = 12;
+shadow-offset-x = -5;
+shadow-offset-y = -5;
+shadow-opacity = 0.5;
+
+# Fading
+fading = true;
+fade-in-step = 0.03;
+fade-out-step = 0.03;
+
+# Other settings
+inactive-opacity = 0.95;
+frame-opacity = 0.95;
+blur-background = true;
+blur-method = "dual_kawase";
+blur-strength = 5;
+```
+
+add the following to `~/.config/regolith/i3/config`
+```bash
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf &
+```
+
+#
+# Restart i3 and picom
+```bash
+# Reload i3 config
+i3-msg reload
+
+# Or restart i3 (will restart your session)
+i3-msg restart
+
+# If picom was already running, restart it:
+pkill picom && picom &
+```
 
 #
 # To set dunst as default Notification System

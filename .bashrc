@@ -2,15 +2,14 @@
 # Extend the bashrc with commonrc
 . ~/.commonrc
 
-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -37,12 +36,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -51,42 +50,41 @@ esac
 #force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+xterm* | rxvt*)
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  ;;
+*) ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  #alias dir='dir --color=auto'
+  #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -102,8 +100,6 @@ alias gti='git'
 #alias htop='bashtop'
 alias rofi='rofi -show drun'
 
-alias vim='hx'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -114,7 +110,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -127,8 +123,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-
 
 # Fancy Two-Line Bash Prompt with Git and ASCII Symbols
 # Color definitions
@@ -153,52 +147,52 @@ PROMPT_SYMBOL="➤"
 
 # Git functions
 git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+  git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
 git_status() {
-    [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "$GIT_DIRTY_SYMBOL" || echo "$GIT_CLEAN_SYMBOL"
+  [[ $(git status 2>/dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "$GIT_DIRTY_SYMBOL" || echo "$GIT_CLEAN_SYMBOL"
 }
 
 # Function to get current directory (shortened if too long)
 current_directory() {
-    local pwd_length=50
-    if [ $(echo -n $PWD | wc -c | tr -d " ") -gt $pwd_length ]; then
-        echo "...$(echo -n $PWD | sed -e "s/.*\(.\{$pwd_length\}\)/\1/")"
-    else
-        echo "$PWD"
-    fi
+  local pwd_length=50
+  if [ $(echo -n $PWD | wc -c | tr -d " ") -gt $pwd_length ]; then
+    echo "...$(echo -n $PWD | sed -e "s/.*\(.\{$pwd_length\}\)/\1/")"
+  else
+    echo "$PWD"
+  fi
 }
 
 # Set the prompt
 set_bash_prompt() {
-    # Get the exit code of the last command
-    local exit_code=$?
+  # Get the exit code of the last command
+  local exit_code=$?
 
-    # First line of the prompt
-    PS1="\n╭───"
-    PS1+="( ${GREEN}${USER}${RESET} )──"
-    PS1+="( ${YELLOW}$(current_directory)${RESET} )──( "
+  # First line of the prompt
+  PS1="\n╭───"
+  PS1+="( ${GREEN}${USER}${RESET} )──"
+  PS1+="( ${YELLOW}$(current_directory)${RESET} )──( "
 
-    # Git information (if in a git repository)
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        PS1+="${GREEN}$GIT_BRANCH_SYMBOL  ${BLUE}$(git_branch)${RESET} "
-	PS1+="${RED}$(git_status)${RESET} )"
-    fi
+  # Git information (if in a git repository)
+  if git rev-parse --git-dir >/dev/null 2>&1; then
+    PS1+="${GREEN}$GIT_BRANCH_SYMBOL  ${BLUE}$(git_branch)${RESET} "
+    PS1+="${RED}$(git_status)${RESET} )"
+  fi
 
-    PS1+="\n"  # Move to the next line
+  PS1+="\n" # Move to the next line
 
-    # Second line of the prompt
-    PS1+="╰─("
+  # Second line of the prompt
+  PS1+="╰─("
 
-    # Show exit status of previous command
-    if [ $exit_code -eq 0 ]; then
-	PS1+="${GREEN}✔${RESET})"
-    else
-        PS1+="${RED}✘${RESET})──"
-    fi
+  # Show exit status of previous command
+  if [ $exit_code -eq 0 ]; then
+    PS1+="${GREEN}✔${RESET})"
+  else
+    PS1+="${RED}✘${RESET})──"
+  fi
 
-    PS1+=" ${YELLOW}$PROMPT_SYMBOL${RESET} "
+  PS1+=" ${YELLOW}$PROMPT_SYMBOL${RESET} "
 }
 
 # Set the prompt command to use our custom function
@@ -206,7 +200,6 @@ PROMPT_COMMAND=set_bash_prompt
 
 # Optionally, set a different prompt for root user
 if [ $(id -u) -eq 0 ]; then
-    PROMPT_SYMBOL="#"
-    USER_SYMBOL="⚡"
+  PROMPT_SYMBOL="#"
+  USER_SYMBOL="⚡"
 fi
-
